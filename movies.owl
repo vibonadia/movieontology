@@ -49,15 +49,6 @@
     <Declaration>
         <DataProperty IRI="#hasYear"/>
     </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Scarlett_Johansson"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Tim_Burton"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Woody_Allen"/>
-    </Declaration>
     <SubClassOf>
         <Class IRI="#Actor"/>
         <Class IRI="http://www.ime.usp.br/~renata/FOAF-modifiedPerson"/>
@@ -70,44 +61,13 @@
         <Class IRI="#Movie"/>
         <Class IRI="http://schema.org/CreativeWork"/>
     </SubClassOf>
-    <ClassAssertion>
-        <Class IRI="#Actor"/>
-        <NamedIndividual IRI="#Scarlett_Johansson"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Director"/>
-        <NamedIndividual IRI="#Tim_Burton"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Actor"/>
-        <NamedIndividual IRI="#Woody_Allen"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Director"/>
-        <NamedIndividual IRI="#Woody_Allen"/>
-    </ClassAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="http://www.ime.usp.br/~renata/FOAF-modifiedage"/>
-        <NamedIndividual IRI="#Scarlett_Johansson"/>
-        <Literal datatypeIRI="&xsd;integer">32</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName"/>
-        <NamedIndividual IRI="#Scarlett_Johansson"/>
-        <Literal datatypeIRI="&rdfs;Literal">Johansson</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="http://www.ime.usp.br/~renata/FOAF-modifiedfirstName"/>
-        <NamedIndividual IRI="#Scarlett_Johansson"/>
-        <Literal datatypeIRI="&xsd;string">Scarlett</Literal>
-    </DataPropertyAssertion>
     <InverseObjectProperties>
         <ObjectProperty IRI="#acted"/>
         <ObjectProperty IRI="#hasActor"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
-        <ObjectProperty IRI="#directed"/>
         <ObjectProperty IRI="#hasDirector"/>
+        <ObjectProperty IRI="#directed"/>
     </InverseObjectProperties>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#acted"/>
@@ -155,7 +115,7 @@
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#hasYear"/>
-        <Datatype abbreviatedIRI="xsd:dateTime"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
     </DataPropertyRange>
 </Ontology>
 

@@ -19,34 +19,197 @@
 #################################################################
 
 
-###  http://www.ime.usp.br/mac5778/individuals-movies#Just_Cause
+###  http://www.ime.usp.br/mac5778/individuals-movies#Avengers_Age_of_Ultron
 
-:Just_Cause rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,
-                     owl:NamedIndividual ;
-            
-            <http://www.ime.usp.br/~renata/FOAF-modifiedtitle> "Just Cause"^^rdfs:Literal .
+:Avengers_Age_of_Ultron rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,
+                                 owl:NamedIndividual ;
+                        
+                        <http://www.ime.usp.br/mac5778/movies#hasYear> 2015 ;
+                        
+                        <http://www.ime.usp.br/mac5778/movies#hasTitle> "Avengers: Age of Ultron"^^rdfs:Literal ;
+                        
+                        <http://www.ime.usp.br/mac5778/movies#hasActor> :Chris_Evans ,
+                                                                        :Chris_Hemsworth ;
+                        
+                        <http://www.ime.usp.br/mac5778/movies#hasDirector> :Joss_Whedon ;
+                        
+                        <http://www.ime.usp.br/mac5778/movies#hasActor> :Mark_Ruffalo ,
+                                                                        :Robert_Downey_Jr ,
+                                                                        :Scarlett_Johansson .
 
 
 
-###  http://www.ime.usp.br/mac5778/individuals-movies#Manny_Lo
+###  http://www.ime.usp.br/mac5778/individuals-movies#Brian_Cox
 
-:Manny_Lo rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,
-                   owl:NamedIndividual ;
-          
-          <http://www.ime.usp.br/~renata/FOAF-modifiedtitle> "Manny & Lo"^^rdfs:Literal .
+:Brian_Cox rdf:type <http://www.ime.usp.br/mac5778/movies#Actor> ,
+                    owl:NamedIndividual ;
+           
+           <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Brian"^^rdfs:Literal ;
+           
+           <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Cox"^^rdfs:Literal .
 
 
 
-###  http://www.ime.usp.br/mac5778/individuals-movies#North
+###  http://www.ime.usp.br/mac5778/individuals-movies#Chris_Evans
 
-:North rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,
+:Chris_Evans rdf:type <http://www.ime.usp.br/mac5778/movies#Actor> ,
+                      owl:NamedIndividual ;
+             
+             <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Chris"^^rdfs:Literal ;
+             
+             <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Evans"^^rdfs:Literal .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Chris_Hemsworth
+
+:Chris_Hemsworth rdf:type <http://www.ime.usp.br/mac5778/movies#Actor> ,
+                          owl:NamedIndividual ;
+                 
+                 <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Chris"^^rdfs:Literal ;
+                 
+                 <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Hemsworth"^^rdfs:Literal .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Hugh_Jackman
+
+:Hugh_Jackman rdf:type <http://www.ime.usp.br/mac5778/movies#Actor> ,
+                       owl:NamedIndividual ;
+              
+              <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Hugh"^^rdfs:Literal ;
+              
+              <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Jackman"^^rdfs:Literal .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Ian_McShane
+
+:Ian_McShane rdf:type <http://www.ime.usp.br/mac5778/movies#Actor> ,
+                      owl:NamedIndividual ;
+             
+             <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Ian"^^rdfs:Literal ,
+                                                                     "McShane"^^rdfs:Literal .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Joss_Whedon
+
+:Joss_Whedon rdf:type <http://www.ime.usp.br/mac5778/movies#Director> ,
+                      owl:NamedIndividual ;
+             
+             <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Joss"^^rdfs:Literal ;
+             
+             <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Whedon"^^rdfs:Literal .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Mark_Ruffalo
+
+:Mark_Ruffalo rdf:type <http://www.ime.usp.br/mac5778/movies#Actor> ,
+                       owl:NamedIndividual ;
+              
+              <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Mark"^^rdfs:Literal ;
+              
+              <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Ruffalo"^^rdfs:Literal .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Match_Point
+
+:Match_Point rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,
+                      owl:NamedIndividual ;
+             
+             <http://www.ime.usp.br/mac5778/movies#hasYear> 2005 ;
+             
+             <http://www.ime.usp.br/mac5778/movies#hasTitle> "Match Point"^^rdfs:Literal ;
+             
+             <http://www.ime.usp.br/mac5778/movies#hasActor> :Brian_Cox ,
+                                                             :Matthew_Goode ,
+                                                             :Scarlett_Johansson ;
+             
+             <http://www.ime.usp.br/mac5778/movies#hasDirector> :Woody_Allen .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Matthew_Goode
+
+:Matthew_Goode rdf:type <http://www.ime.usp.br/mac5778/movies#Actor> ,
+                        owl:NamedIndividual ;
+               
+               <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Goode"^^rdfs:Literal ;
+               
+               <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Matthew"^^rdfs:Literal .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Robert_Downey_Jr
+
+:Robert_Downey_Jr rdf:type <http://www.ime.usp.br/mac5778/movies#Actor> ,
+                           owl:NamedIndividual ;
+                  
+                  <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Downey"^^rdfs:Literal ;
+                  
+                  <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Robert"^^rdfs:Literal .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Scarlett_Johansson
+
+:Scarlett_Johansson rdf:type <http://www.ime.usp.br/mac5778/movies#Actor> ,
+                             owl:NamedIndividual ;
+                    
+                    <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Johansson"^^rdfs:Literal ;
+                    
+                    <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Scarlett"^^rdfs:Literal .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Scoop
+
+:Scoop rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,
                 owl:NamedIndividual ;
        
-       <http://www.ime.usp.br/mac5778/movies#hasYear> "2003"^^xsd:dateTime ;
+       <http://www.ime.usp.br/mac5778/movies#hasYear> 2006 ;
        
-       <http://www.ime.usp.br/mac5778/movies#hasTitle> "North"^^rdfs:Literal ;
+       <http://www.ime.usp.br/mac5778/movies#hasTitle> "Scoop"^^rdfs:Literal ;
        
-       <http://www.ime.usp.br/mac5778/movies#hasActor> <http://www.ime.usp.br/mac5778/movies#Scarlett_Johansson> .
+       <http://www.ime.usp.br/mac5778/movies#hasActor> :Hugh_Jackman ,
+                                                       :Ian_McShane ,
+                                                       :Scarlett_Johansson ;
+       
+       <http://www.ime.usp.br/mac5778/movies#hasDirector> :Woody_Allen .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#The_Avengers
+
+:The_Avengers rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,
+                       owl:NamedIndividual ;
+              
+              <http://www.ime.usp.br/mac5778/movies#hasYear> 2012 ;
+              
+              <http://www.ime.usp.br/mac5778/movies#hasTitle> "The Avengers"^^rdfs:Literal ;
+              
+              <http://www.ime.usp.br/mac5778/movies#hasActor> :Chris_Evans ,
+                                                              :Chris_Hemsworth ;
+              
+              <http://www.ime.usp.br/mac5778/movies#hasDirector> :Joss_Whedon ;
+              
+              <http://www.ime.usp.br/mac5778/movies#hasActor> :Mark_Ruffalo ,
+                                                              :Robert_Downey_Jr ,
+                                                              :Scarlett_Johansson .
+
+
+
+###  http://www.ime.usp.br/mac5778/individuals-movies#Woody_Allen
+
+:Woody_Allen rdf:type <http://www.ime.usp.br/mac5778/movies#Director> ,
+                      owl:NamedIndividual ;
+             
+             <http://www.ime.usp.br/~renata/FOAF-modifiedfamilyName> "Allen"^^rdfs:Literal ;
+             
+             <http://www.ime.usp.br/~renata/FOAF-modifiedfirstName> "Woody"^^rdfs:Literal .
 
 
 
