@@ -14,6 +14,27 @@
 
 #################################################################
 #
+#    Object Properties
+#
+#################################################################
+
+
+###  http://www.ime.usp.br/mac5778/movies#directed
+
+<http://www.ime.usp.br/mac5778/movies#directed> rdfs:subPropertyOf <http://www.ime.usp.br/~renata/FOAF-modifiedmade> .
+
+
+
+###  http://www.ime.usp.br/mac5778/movies#hasDirector
+
+<http://www.ime.usp.br/mac5778/movies#hasDirector> rdfs:subPropertyOf <http://www.ime.usp.br/~renata/FOAF-modifiedmaker> .
+
+
+
+
+
+#################################################################
+#
 #    Individuals
 #
 #################################################################
