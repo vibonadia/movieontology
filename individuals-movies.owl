@@ -223,6 +223,21 @@
 
 
 
+###  http://www.ime.usp.br/mac5778/individuals-movies#Vicky_Cristina_Barcelona
+
+:Vicky_Cristina_Barcelona rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,
+                                   owl:NamedIndividual ;
+                          
+                          <http://www.ime.usp.br/mac5778/movies#hasYear> "2008"^^xsd:int ;
+                          
+                          <http://www.ime.usp.br/mac5778/movies#hasTitle> "Vicky Cristina Barcelona"^^rdfs:Literal ;
+                          
+                          <http://www.ime.usp.br/mac5778/movies#hasActor> :Scarlett_Johansson ;
+                          
+                          <http://www.ime.usp.br/mac5778/movies#hasDirector> :Woody_Allen .
+
+
+
 ###  http://www.ime.usp.br/mac5778/individuals-movies#Woody_Allen
 
 :Woody_Allen rdf:type <http://www.ime.usp.br/mac5778/movies#Director> ,
