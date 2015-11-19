@@ -61,6 +61,14 @@
         <Class IRI="#Movie"/>
         <Class IRI="http://schema.org/CreativeWork"/>
     </SubClassOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#directed"/>
+        <ObjectProperty IRI="http://www.ime.usp.br/~renata/FOAF-modifiedmade"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasDirector"/>
+        <ObjectProperty IRI="http://www.ime.usp.br/~renata/FOAF-modifiedmaker"/>
+    </SubObjectPropertyOf>
     <InverseObjectProperties>
         <ObjectProperty IRI="#acted"/>
         <ObjectProperty IRI="#hasActor"/>
