@@ -3,12 +3,112 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX foaf: <http://www.ime.usp.br/~renata/FOAF-modified>
-PREFIX movies: <http://www.ime.usp.br/mac5778/movies>
+PREFIX movies: <http://www.ime.usp.br/mac5778/movies#>
 
+# 01. Quais atores participaram do filme F?
 
-SELECT *
+SELECT ?movie ?actor
 WHERE {
-?ind rdf:type ?type .
-?type rdfs:subClassOf foaf:Person .
-?ind foaf:firstName "Scarlett"^^xsd:string.
+  ?movie movies:hasTitle "The Avengers"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor.
 }
+
+# 02. Quais filmes foram dirigidos pelo diretor D?
+
+SELECT ?director ?movie
+WHERE {
+  ?director foaf:firstName "Woody"^^rdfs:Literal.
+  ?director foaf:familyName "Allen"^^rdfs:Literal.
+  ?movie movies:hasDirector ?director .
+}
+
+# 03. Em quais filmes o ator X atuou?
+
+SELECT ?actor ?movie
+WHERE {
+  ?actor foaf:firstName "Scarlett"^^rdfs:Literal.
+  ?actor foaf:familyName "Johansson"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor .
+}
+
+
+# 04. Em quais filmes o ator X atuou junto com Y?
+
+SELECT ?actor1 ?actor2 ?movie
+WHERE {
+  ?actor1 foaf:firstName "Scarlett"^^rdfs:Literal.
+  ?actor1 foaf:familyName "Johansson"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor1 .
+  ?actor2 foaf:firstName "Chris"^^rdfs:Literal.
+  ?actor2 foaf:familyName "Evans"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor2 .
+}
+
+# 05. Quem foram os diretores dos filmes nos quais os atores X e Y atuam juntos?
+
+SELECT ?actor1 ?actor2 ?movie ?director
+WHERE {
+  ?actor1 foaf:firstName "Scarlett"^^rdfs:Literal.
+  ?actor1 foaf:familyName "Johansson"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor1 .
+  ?actor2 foaf:firstName "Chris"^^rdfs:Literal.
+  ?actor2 foaf:familyName "Evans"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor2 .
+  ?movie movies:hasDirector ?director .
+}
+
+# 06. Qual o diretor que mais dirigiu filmes do ator X?	
+
+SELECT ?director (COUNT(?director) as ?count) 
+WHERE {
+  ?actor foaf:firstName "Scarlett"^^rdfs:Literal.
+  ?actor foaf:familyName "Johansson"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor .
+  ?movie movies:hasDirector ?director .
+}
+Group by ?director
+ORDER BY DESC(?count) LIMIT 1
+
+# 07. Qual o ator que mais aparece nos filmes do diretor D?
+
+SELECT ?actor (COUNT(?actor) as ?count)
+WHERE {
+  ?director foaf:firstName "Woody"^^rdfs:Literal.
+  ?director foaf:familyName "Allen"^^rdfs:Literal.
+  ?movie movies:hasDirector ?director .
+  ?movie movies:hasActor ?actor .
+}
+Group by ?actor
+ORDER BY DESC(?count) LIMIT 1 
+
+# 08. Entre os anos N1 e N2, quais diretores dirigiram filmes onde X e Y aparecem?
+
+SELECT ?director ?movie ?year
+WHERE {
+  ?actor1 foaf:firstName "Scarlett"^^rdfs:Literal.
+  ?actor1 foaf:familyName "Johansson"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor1 .
+  ?actor2 foaf:firstName "Chris"^^rdfs:Literal.
+  ?actor2 foaf:familyName "Evans"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor2 .
+  ?movie movies:hasDirector ?director .
+  ?movie movies:hasYear ?year.
+  FILTER(?year >= 2012 && ?year <= 2015) .
+}
+
+# 09. Entre os anos N1 e N2, quais atores atuaram juntos nos filmes onde X e Y aparecem?
+
+SELECT ?actor1 ?actor2 ?movie ?actor
+WHERE {
+  ?actor1 foaf:firstName "Scarlett"^^rdfs:Literal.
+  ?actor1 foaf:familyName "Johansson"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor1 .
+  ?actor2 foaf:firstName "Chris"^^rdfs:Literal.
+  ?actor2 foaf:familyName "Evans"^^rdfs:Literal.
+  ?movie movies:hasActor ?actor2 .
+  ?movie movies:hasActor ?actor .
+  ?movie movies:hasYear ?year .
+  FILTER(?year >= 1993 && ?year <= 2017). 
+}
+
+# 10. Quais filmes do diretor do filme F possuem X ou Y como atores?
