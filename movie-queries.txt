@@ -112,3 +112,20 @@ WHERE {
 }
 
 # 10. Quais filmes do diretor do filme F possuem X ou Y como atores?
+
+SELECT  ?movie ?director ?movies ?atores 
+WHERE {
+  ?movie movies:hasTitle "Scoop"^^rdfs:Literal.
+  ?movie movies:hasDirector ?director.
+  ?movies movies:hasDirector ?director.
+  ?movies movies:hasActor ?atores.
+  {
+    ?atores foaf:firstName "Hugh"^^rdfs:Literal.
+    ?atores foaf:familyName "Jackman"^^rdfs:Literal.
+  }
+  UNION
+  {
+    ?atores foaf:firstName "Brian"^^rdfs:Literal.
+    ?atores foaf:familyName "Cox"^^rdfs:Literal.
+  }
+}
