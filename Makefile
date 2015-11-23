@@ -1,2 +1,2 @@
 all:
-	python read-imdb.py
+	populate-ontology.py
