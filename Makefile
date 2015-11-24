@@ -1,2 +1,2 @@
 all:
-	populate-ontology.py
+	python populate-ontology.py
