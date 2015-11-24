@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from SPARQLWrapper import SPARQLWrapper, N3, RDF, JSON
 from dateutil.parser import parse
 import pprint
@@ -8,8 +9,12 @@ import json
 
 class Populator:    
     sparql = SPARQLWrapper("http://data.linkedmdb.org/sparql")
-    actors = ['Johnny Depp', 'Javier Bardem', 'Helena Bonham Carter',
-              'Scarlett Johansson']
+    actors = ['Johnny Depp']
+    all_actors = {}
+    all_directors = {}
+#    actors = ['Johnny Depp', 'Javier Bardem', 'Helena Bonham Carter',	
+#              'Scarlett Johansson']
+	                        
     movies_info = {}
     movies_scarlett = ["Avengers: Age of Ultron", "Lucy", "Captain "\
                        " America: The Winter Soldier", "Chef", \
@@ -27,26 +32,28 @@ class Populator:
                        "The Man Who Wasn't There", "My Brother the Pig", \
                        "The Horse Whisperer", "Home Alone 3", "Fall", \
                        "If Lucy Fell", "Manny & Lo", "Just Cause", "North"]
-
+                       
     def get_actors_for_movie(self, movie):
         movie = movie.encode('utf-8')
-        movie = urllib.quote(movie)
-        urlMovie = 'http://www.omdbapi.com/?t=' + movie + '&plot=full&r=json'
+        movieQuote = urllib.quote(movie)
+        urlMovie = 'http://www.omdbapi.com/?t=' +movieQuote+ '&plot=full&r=json'
         response = urllib.urlopen(urlMovie)
         data = json.loads(response.read())
         if data.has_key('imdbID'):
-            director = data['Director']
-            imdbID = data['imdbID']
-            year = data['Year']
-            urlCredits = 'http://www.imdb.com/title/' + imdbID + '/fullcredits'
-            file = urllib.urlopen(urlCredits)
-            data = file.read()
-            these_regex = '<span class="itemprop" itemprop="name">(.+?)</span>'
-            pattern = re.compile(these_regex)
-            names = re.findall(pattern, data)
-            self.add_movie_info(movie, 'director', director)
-            self.add_movie_info(movie, 'release_date', year)
-            self.add_movie_info(movie, 'actor', names)
+        	director = data['Director']
+        	imdbID = data['imdbID']
+        	year = data['Year']
+        	urlCredits = 'http://www.imdb.com/title/' + imdbID + '/fullcredits'
+        	file = urllib.urlopen(urlCredits)
+        	data = file.read()
+        	these_regex = '<span class="itemprop" itemprop="name">(.+?)</span>'
+        	pattern = re.compile(these_regex)
+        	names = re.findall(pattern, data)
+        	self.add_movie_info(movie, 'director', director)
+        	self.add_movie_info(movie, 'release_date', year)
+        	self.add_movie_info(movie, 'actor', names)
+        else:
+        	print '\n\n MOVIE IGNORED: '+movie
 
     def populate(self):
         for actor in self.actors:
@@ -57,9 +64,36 @@ class Populator:
 
     def generate_turtle(self):
         for movie in self.movies_info:
-            print movie
-            print self.movies_info[movie]
-
+        	movieName = movie.encode('utf-8').replace(' ', "_")
+        	movieDic = self.movies_info[movie]
+        	if movieDic.has_key('director'):
+        		year = movieDic['release_date']
+        		director = movieDic['director']
+        		directorName = director.encode('utf-8').replace(' ', '_')
+        		try:
+        			print ':'+movieName.lower()+ ' rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,\n\t\t\t\t owl:NamedIndividual ;'
+        			print '<http://www.ime.usp.br/mac5778/movies#hasYear>' +year+ ' ;'
+        			print '<http://www.ime.usp.br/mac5778/movies#hasTitle> ' +movie.encode('utf-8').lower()+'^^rdfs:Literal ;'
+        			print '<http://www.ime.usp.br/mac5778/movies#hasActor>'
+        			for actor in movieDic['actor']:
+        				actorName=actor.encode('utf-8').replace(' ', '_').lower()
+        				print ':'+actorName+ ' ,' #TDODO fix final comma
+        				#add actor
+        				#all_actors[actorName] = actor.encode('utf-8').lower()
+        			print ' ;'
+        		except Exception:
+        			print '\n\n MOVIE IGNORED: '+movieName
+        	else:
+        		print 'MOVIE IGNORED: '+movieName
+#        	self.generate_turtle_actors()
+#        	self.generate_turtle_directors()
+        	
+        def generate_turtle_actors(self):
+        	return None
+        	
+        def generate_turtle_directors(self):
+        	return None
+        		
     def get_year(self, date):
         return parse
 
@@ -104,7 +138,8 @@ class Populator:
     def add_movie_info(self, movie, info, value):
         if not movie in self.movies_info:
             self.movies_info[movie] = {}
-        self.movies_info[movie][info] = value        
+        self.movies_info[movie][info] = value
+        
 
 def main():
     Populator().populate()
