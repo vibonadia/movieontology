@@ -1,2 +1,2 @@
 all:
-	python populate-ontology.py
+	python populate-ontology.py > salida.txt

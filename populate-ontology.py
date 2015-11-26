@@ -6,15 +6,17 @@ import codecs
 import urllib
 import re
 import json
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 class Populator:    
     sparql = SPARQLWrapper("http://data.linkedmdb.org/sparql")
-    actors = ['Johnny Depp']
     all_actors = {}
     all_directors = {}
-#    actors = ['Johnny Depp', 'Javier Bardem', 'Helena Bonham Carter',	
-#              'Scarlett Johansson']
-	                        
+    actors = ['Johnny Depp', 'Javier Bardem', 'Helena Bonham Carter',	
+              'Scarlett Johansson']
+    directors = ['Woody Allen', 'Tim Burton']
     movies_info = {}
     movies_scarlett = ["Avengers: Age of Ultron", "Lucy", "Captain "\
                        " America: The Winter Soldier", "Chef", \
@@ -32,7 +34,15 @@ class Populator:
                        "The Man Who Wasn't There", "My Brother the Pig", \
                        "The Horse Whisperer", "Home Alone 3", "Fall", \
                        "If Lucy Fell", "Manny & Lo", "Just Cause", "North"]
-                       
+
+    def __init__(self):
+       for m in self.movies_scarlett:
+           self.add_movie_info(m.strip(), 'x', 'x')
+       for m in open("WoodyAlen_Movies.txt", "r").readlines():
+           self.add_movie_info(m.strip(), 'x', 'x')
+       for m in open("TimBurton_Movies.txt", "r").readlines():
+           self.add_movie_info(m.strip(), 'x', 'x')
+
     def get_actors_for_movie(self, movie):
         movie = movie.encode('utf-8')
         movieQuote = urllib.quote(movie)
@@ -52,8 +62,8 @@ class Populator:
             self.add_movie_info(movie, 'director', director)
             self.add_movie_info(movie, 'release_date', year)
             self.add_movie_info(movie, 'actor', names)
-        else:
-            print '\n\n MOVIE IGNORED: '+movie
+        #else:
+        #    print '\n\n MOVIE IGNORED: '+movie
 
     def populate(self):
         for actor in self.actors:
@@ -61,32 +71,6 @@ class Populator:
         for movie in self.movies_info.copy():
             self.get_actors_for_movie(movie)
         self.generate_turtle_actors()
-
-    def generate_turtle(self):
-        for movie in self.movies_info:
-            movieName = movie.encode('utf-8').replace(' ', "_")
-            movieDic = self.movies_info[movie]
-            if movieDic.has_key('director'):
-                year = movieDic['release_date']
-                director = movieDic['director']
-                directorName = director.encode('utf-8').replace(' ', '_')
-                try:
-                    print ':'+movieName.lower()+ ' rdf:type <http://www.ime.usp.br/mac5778/movies#Movie> ,\n\t\t\t\t owl:NamedIndividual ;'
-                    print '<http://www.ime.usp.br/mac5778/movies#hasYear>' +year+ ' ;'
-                    print '<http://www.ime.usp.br/mac5778/movies#hasTitle> ' +movie.encode('utf-8').lower()+'^^rdfs:Literal ;'
-                    print '<http://www.ime.usp.br/mac5778/movies#hasActor>'
-                    for actor in movieDic['actor']:
-                        actorName=actor.encode('utf-8').replace(' ', '_').lower()
-                        print ':'+actorName+ ' ,' #TDODO fix final comma
-                        #add actor
-                        #all_actors[actorName] = actor.encode('utf-8').lower()
-                        print ' ;'
-                except Exception:
-                    print '\n\n MOVIE IGNORED: '+movieName
-                else:
-                    print 'MOVIE IGNORED: '+movieName
-                    #        	self.generate_turtle_actors()
-                    #        	self.generate_turtle_directors()
         	
     def get_key(self, key):
         return key.replace(' ', '_').lower()
@@ -104,8 +88,8 @@ class Populator:
 
     def generate_actor_ids(self):
         self.all_actors = {}
-        print "Generating turtle actors"
         for movie in self.movies_info:
+            print self.get_turtle_for_movie(movie)
             if 'actor' in self.movies_info[movie]:
                 for actor in self.movies_info[movie]['actor']:
                     self.all_actors[actor] = self.get_key(actor)
@@ -117,10 +101,28 @@ class Populator:
     def get_turtle_for_person(self, name, concept, key_source):
         (first_name, last_name) = self.split_name(name)
         return """ 
-            %s rdf:type movies:%s ;
-               mfoaf:FOAF-modifiedfirstName "%s"^^rdfs:Literal ;
-               mfoaf:FOAF-modifiedfamilyName "%s"^^rdfs:Literal ;
-        """ % (key_source[name], concept, first_name, last_name)        
+%s rdf:type movies:%s, owl:NamedIndividual ;
+     mfoaf:FOAF-modifiedfirstName "%s"^^rdfs:Literal ;
+     mfoaf:FOAF-modifiedfamilyName "%s"^^rdfs:Literal ;""" %\
+         (key_source[name], concept, first_name, last_name)
+
+    def get_turtle_for_movie(self, movie):
+        movie = movie.strip()
+        info = self.movies_info[movie]
+        if not 'director' in info:
+            return ''
+        actors_info = ''
+        if 'actor' in info:
+            for actor in info['actor']:
+                actors_info += '\n movies:hasActor :%s' % (self.get_key(actor))
+        return """
+%s rdf:type movies:Movie, owl:NamedIndividual ;
+     movies:hasYear "%s"^^xsd:int ;
+     movies:hasTitle "%s"^^rdfs:Literal ;
+     %s,
+     movies:hasDirector :%s .
+""" % (self.get_key(movie), info['release_date'], movie, actors_info,\
+       self.get_key(info['director']))
 
     def get_turtle_for_actor(self, actor):
         return self.get_turtle_for_person(actor, 'Actor',
@@ -129,9 +131,6 @@ class Populator:
     def get_turtle_for_director(self, director):
         return self.get_turtle_for_person(director, 'Director',
                                           self.all_directors)
-
-    def get_turtle_for_movie(self, movie):
-        
         		
     def execute_query(self, query):
         self.sparql.setQuery(query)
@@ -179,5 +178,5 @@ class Populator:
 
 def main():
     Populator().populate()
-
+    
 main()
