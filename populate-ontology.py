@@ -17,6 +17,7 @@ class Populator:
     actors = ['Johnny Depp', 'Javier Bardem', 'Helena Bonham Carter',	
               'Scarlett Johansson']
     directors = ['Woody Allen', 'Tim Burton']
+    directors = []
     movies_info = {}
     movies_scarlett = ["Avengers: Age of Ultron", "Lucy", "Captain "\
                        " America: The Winter Soldier", "Chef", \
@@ -101,9 +102,9 @@ class Populator:
     def get_turtle_for_person(self, name, concept, key_source):
         (first_name, last_name) = self.split_name(name)
         return """ 
-%s rdf:type movies:%s, owl:NamedIndividual ;
+:%s rdf:type movies:%s, owl:NamedIndividual ;
      mfoaf:FOAF-modifiedfirstName "%s"^^rdfs:Literal ;
-     mfoaf:FOAF-modifiedfamilyName "%s"^^rdfs:Literal ;""" %\
+     mfoaf:FOAF-modifiedfamilyName "%s"^^rdfs:Literal .""" %\
          (key_source[name], concept, first_name, last_name)
 
     def get_turtle_for_movie(self, movie):
@@ -114,12 +115,12 @@ class Populator:
         actors_info = ''
         if 'actor' in info:
             for actor in info['actor']:
-                actors_info += '\n movies:hasActor :%s' % (self.get_key(actor))
+                actors_info += '\n      movies:hasActor :%s ;' % (self.get_key(actor))
         return """
-%s rdf:type movies:Movie, owl:NamedIndividual ;
+:%s rdf:type movies:Movie, owl:NamedIndividual ;
      movies:hasYear "%s"^^xsd:int ;
      movies:hasTitle "%s"^^rdfs:Literal ;
-     %s,
+     %s
      movies:hasDirector :%s .
 """ % (self.get_key(movie), info['release_date'], movie, actors_info,\
        self.get_key(info['director']))
